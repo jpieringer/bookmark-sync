@@ -1,4 +1,11 @@
 var ws = require("nodejs-websocket")
+
+var port = 8001;
+if (process.argv.length >= 1) {
+    port = parseInt(process.argv[2]);
+}
+console.log("Starting server on port: " + port);
+
 var id = 1;
 var server = ws.createServer({validProtocols:"bookmark"},function (conn) {
     conn.conId = id++;
@@ -13,7 +20,7 @@ var server = ws.createServer({validProtocols:"bookmark"},function (conn) {
         console.log("[" + conn.conId + "] Connection closed");
     })
 
-}).listen(8001)
+}).listen(port)
 console.log("Server started")
 
 function broadcast(sourceId, bookmarks) {
