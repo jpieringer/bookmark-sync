@@ -90,12 +90,15 @@ function connect(serverUrl) {
     });
   }
 
+  connection.onclose = function (closeEvent) {
+    //try to reconnect in 5 seconds if it was not closed due to a serverAddress change
+    setTimeout(function(){connect(serverUrl)}, 5000);
+  }
+
   return connection;
 }
 
-
 document.addEventListener('DOMContentLoaded', function () {
-
   chrome.storage.sync.get('serverAddress', function(storage) {
     var connection = connect(storage.serverAddress);
 
@@ -106,7 +109,5 @@ document.addEventListener('DOMContentLoaded', function () {
           connection = connect(changes.serverAddress.newValue);
         }
     });
-
   });
-
 });

@@ -1,0 +1,19 @@
+{
+  "name": "bookmark-sync-server",
+  "version": "1.0.0",
+  "description": "Sync chrome bookmarks in the local network (chrome extension + nodejs server)",
+  "main": "server.js",
+  "dependencies": {
+    "nodejs-websocket": "^1.7.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "bookmark-sync"
+  ],
+  "author": "jpieringer",
+  "license": "MIT"
+}
