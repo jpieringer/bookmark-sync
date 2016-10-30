@@ -100,12 +100,17 @@ function connect(serverUrl) {
 
 document.addEventListener('DOMContentLoaded', function () {
   chrome.storage.sync.get('serverAddress', function(storage) {
-    var connection = connect(storage.serverAddress);
+    var connection;
+    if (storage.serverAddress !== undefined) {
+      connection = connect(storage.serverAddress);
+    }
 
     chrome.storage.onChanged.addListener(function(changes, area) {
         if (area == "sync" && "serverAddress" in changes) {
-          console.log("Closing the connection.");
-          connection.close();
+          if (connection !== undefined) {
+            console.log("Closing the connection.");
+            connection.close();
+          }
           connection = connect(changes.serverAddress.newValue);
         }
     });
